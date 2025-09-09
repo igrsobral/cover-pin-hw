@@ -36,8 +36,7 @@ class ErrorBoundary extends Component<Props, State> {
           <div className="max-w-md w-full">
             <ErrorMessage
               message={
-                this.state.error?.message ||
-                ERROR_MESSAGES.SOMETHING_WENT_WRONG
+                this.state.error?.message || ERROR_MESSAGES.SOMETHING_WENT_WRONG
               }
               onRetry={this.handleRetry}
             />

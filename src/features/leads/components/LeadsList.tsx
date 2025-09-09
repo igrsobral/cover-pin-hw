@@ -1,7 +1,7 @@
+import { ErrorMessage, LoadingSpinner } from '@shared/components/ui';
+import { capitalizeFirst } from '@shared/utils';
 import { memo, useCallback } from 'react';
 import type { Lead, SortConfig } from '../types';
-import { LoadingSpinner, ErrorMessage } from '../../../shared/components/ui';
-import { capitalizeFirst } from '../../../shared/utils';
 
 interface LeadsListProps {
   leads: Lead[];

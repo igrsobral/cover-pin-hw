@@ -1,4 +1,4 @@
-import { Input, Select, Button } from '../../../shared/components/ui';
+import { Button, Input, Select } from '@shared/components/ui';
 import type { LeadFilters as LeadFiltersType } from '../types';
 
 interface LeadFiltersProps {

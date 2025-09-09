@@ -1,7 +1,7 @@
-import { useState, useCallback } from 'react';
+import { fetchLeads, updateLead } from '@shared/data/api';
+import { useAsync } from '@shared/hooks';
+import { useCallback, useState } from 'react';
 import type { Lead } from '../types';
-import { useAsync } from '../../../shared/hooks';
-import { fetchLeads, updateLead } from '../../../shared/data/api';
 
 const useLeads = () => {
   const [leads, setLeads] = useState<Lead[]>([]);
