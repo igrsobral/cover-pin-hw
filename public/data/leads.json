@@ -1,0 +1,47 @@
+[
+  {
+    "id": "lead-1",
+    "name": "John Smith",
+    "company": "TechCorp Inc",
+    "email": "john.smith@techcorp.com",
+    "source": "website",
+    "score": 85,
+    "status": "new"
+  },
+  {
+    "id": "lead-2",
+    "name": "Sarah Johnson",
+    "company": "DataFlow Solutions",
+    "email": "sarah.j@dataflow.com",
+    "source": "referral",
+    "score": 92,
+    "status": "contacted"
+  },
+  {
+    "id": "lead-3",
+    "name": "Mike Chen",
+    "company": "CloudTech Systems",
+    "email": "m.chen@cloudtech.io",
+    "source": "linkedin",
+    "score": 78,
+    "status": "qualified"
+  },
+  {
+    "id": "lead-4",
+    "name": "Emily Davis",
+    "company": "StartupXYZ",
+    "email": "emily@startupxyz.com",
+    "source": "conference",
+    "score": 65,
+    "status": "new"
+  },
+  {
+    "id": "lead-5",
+    "name": "Robert Wilson",
+    "company": "Enterprise Solutions",
+    "email": "r.wilson@enterprise.com",
+    "source": "cold_call",
+    "score": 88,
+    "status": "contacted"
+  }
+]
