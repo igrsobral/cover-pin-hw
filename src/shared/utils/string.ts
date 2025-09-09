@@ -17,7 +17,11 @@ export const slugify = (str: string): string => {
     .replace(/^-+|-+$/g, '');
 };
 
-export const truncate = (str: string, length: number, suffix = '...'): string => {
+export const truncate = (
+  str: string,
+  length: number,
+  suffix = '...'
+): string => {
   if (str.length <= length) return str;
   return str.substring(0, length - suffix.length) + suffix;
 };

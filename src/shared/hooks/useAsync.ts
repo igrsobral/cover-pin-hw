@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { ERROR_MESSAGES } from '../constants';
 
 interface AsyncState<T> {
   data: T | null;
@@ -30,7 +31,7 @@ const useAsync = <T>(
       return data;
     } catch (error) {
       const errorMessage =
-        error instanceof Error ? error.message : 'An error occurred';
+        error instanceof Error ? error.message : ERROR_MESSAGES.GENERIC_ERROR;
       setState({ data: null, loading: false, error: errorMessage });
       throw error;
     }
