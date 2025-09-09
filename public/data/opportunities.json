@@ -1,1 +1,39 @@
-[]
+[
+  {
+    "id": "opp-001",
+    "name": "TechCorp - Enterprise Solution",
+    "stage": "proposal",
+    "amount": 150000,
+    "accountName": "TechCorp Solutions",
+    "leadId": "lead-001"
+  },
+  {
+    "id": "opp-002",
+    "name": "DataFlow Inc - Analytics Platform",
+    "stage": "negotiation",
+    "amount": 85000,
+    "accountName": "DataFlow Inc",
+    "leadId": "lead-003"
+  },
+  {
+    "id": "opp-003",
+    "name": "CloudTech - Infrastructure Upgrade",
+    "stage": "qualification",
+    "amount": 200000,
+    "accountName": "CloudTech Systems"
+  },
+  {
+    "id": "opp-004",
+    "name": "StartupX - MVP Development",
+    "stage": "prospecting",
+    "amount": 45000,
+    "accountName": "StartupX"
+  },
+  {
+    "id": "opp-005",
+    "name": "Enterprise Corp - Digital Transformation",
+    "stage": "closed_won",
+    "amount": 500000,
+    "accountName": "Enterprise Corp"
+  }
+]
