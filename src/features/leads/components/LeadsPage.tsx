@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import type { Lead } from '../types';
+
 import { useLeads, useLeadFilters } from '../hooks';
+
+import LeadDetail from './LeadDetail';
 import LeadFilters from './LeadFilters';
 import LeadsList from './LeadsList';
-import LeadDetail from './LeadDetail';
+
+import type { Lead } from '../types';
 
 const LeadsPage = () => {
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);

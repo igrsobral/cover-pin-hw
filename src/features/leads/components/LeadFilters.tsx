@@ -1,4 +1,5 @@
 import { Button, Input, Select } from '@shared/components/ui';
+
 import type { LeadFilters as LeadFiltersType } from '../types';
 
 interface LeadFiltersProps {
@@ -24,9 +25,10 @@ const LeadFilters = ({
 
   return (
     <div className="bg-white p-4 rounded-lg shadow mb-6">
-      <div className="flex flex-col sm:flex-row gap-4 items-end">
-        <div className="flex-1">
-          <Input
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex-1">
+            <Input
             label="Search"
             placeholder="Search by name or company..."
             value={filters.search}
@@ -42,15 +44,18 @@ const LeadFilters = ({
             onChange={(e) => onFilterChange('status', e.target.value)}
           />
         </div>
+      </div>
 
         {hasActiveFilters && (
-          <Button
-            variant="secondary"
-            onClick={onClearFilters}
-            className="whitespace-nowrap"
-          >
-            Clear Filters
-          </Button>
+          <div className="flex justify-start sm:justify-end">
+            <Button
+              variant="secondary"
+              onClick={onClearFilters}
+              className="w-full sm:w-auto"
+            >
+              Clear Filters
+            </Button>
+    </div>
         )}
       </div>
     </div>

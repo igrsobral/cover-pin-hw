@@ -1,23 +1,25 @@
+import { useEffect, useState } from 'react';
+
 import {
-    Button,
-    ErrorMessage,
-    InfoCard,
-    Input,
-    Select,
-    SlideOver,
+  Button,
+  ErrorMessage,
+  InfoCard,
+  Input,
+  Select,
+  SlideOver,
 } from '@shared/components/ui';
 import { ERROR_MESSAGES, STATUS_COLORS } from '@shared/constants';
 import { convertLeadToOpportunity } from '@shared/data/api';
 import type { OpportunityStage } from '@shared/types';
 import { validateEmail } from '@shared/utils';
-import { useEffect, useState } from 'react';
+
 import type { Lead, LeadStatus } from '../types';
 
 interface LeadDetailProps {
   lead: Lead | null;
   isOpen: boolean;
   onClose: () => void;
-  onLeadUpdate: (leadId: string, updates: Partial<Lead>) => Promise<Lead>;
+  onLeadUpdate: (leadId: string, updates: Partial<Lead>) => Promise<Lead | null>;
   onOpportunityCreated?: () => void;
 }
 
