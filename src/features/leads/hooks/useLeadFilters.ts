@@ -1,17 +1,18 @@
 import { useMemo, useCallback } from 'react';
 import type { Lead, LeadFilters, SortConfig } from '../types';
 import { useLocalStorage } from '../../../shared/hooks';
+import { STORAGE_KEYS, DEFAULT_FILTERS, DEFAULT_SORT } from '../../../shared/constants';
 
 const useLeadFilters = (leads: Lead[]) => {
-  const [filters, setFilters] = useLocalStorage<LeadFilters>('leadFilters', {
-    search: '',
-    status: 'all',
-  });
+  const [filters, setFilters] = useLocalStorage<LeadFilters>(
+    STORAGE_KEYS.LEAD_FILTERS,
+    DEFAULT_FILTERS.LEADS
+  );
 
-  const [sortConfig, setSortConfig] = useLocalStorage<SortConfig>('leadSort', {
-    field: 'score',
-    direction: 'desc',
-  });
+  const [sortConfig, setSortConfig] = useLocalStorage<SortConfig>(
+    STORAGE_KEYS.LEAD_SORT,
+    DEFAULT_SORT.LEADS
+  );
 
   const updateFilter = useCallback(
     (key: keyof LeadFilters, value: string) => {
@@ -32,7 +33,7 @@ const useLeadFilters = (leads: Lead[]) => {
   );
 
   const clearFilters = useCallback(() => {
-    setFilters({ search: '', status: 'all' });
+    setFilters(DEFAULT_FILTERS.LEADS);
   }, [setFilters]);
 
   const filteredAndSortedLeads = useMemo(() => {

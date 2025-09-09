@@ -1,5 +1,6 @@
 import { Component, type ReactNode } from 'react';
 import { ErrorMessage } from './ui';
+import { ERROR_MESSAGES } from '../constants';
 
 interface Props {
   children: ReactNode;
@@ -21,7 +22,7 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: unknown) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    console.error(ERROR_MESSAGES.ERROR_BOUNDARY_MESSAGE, error, errorInfo);
   }
 
   handleRetry = () => {
@@ -36,7 +37,7 @@ class ErrorBoundary extends Component<Props, State> {
             <ErrorMessage
               message={
                 this.state.error?.message ||
-                'Something went wrong. Please try again.'
+                ERROR_MESSAGES.SOMETHING_WENT_WRONG
               }
               onRetry={this.handleRetry}
             />

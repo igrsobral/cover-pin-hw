@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import type { Lead, LeadStatus, OpportunityStage } from '../types';
+import type { Lead, LeadStatus } from '../types';
+import type { OpportunityStage } from '../../../shared/types';
 import {
   SlideOver,
   Button,
@@ -9,6 +10,7 @@ import {
 } from '../../../shared/components/ui';
 import { validateEmail } from '../../../shared/utils';
 import { convertLeadToOpportunity } from '../../../shared/data/api';
+import { ERROR_MESSAGES, STATUS_COLORS } from '../../../shared/constants';
 
 interface LeadDetailProps {
   lead: Lead | null;
@@ -72,11 +74,11 @@ const LeadDetail = ({
   }, [lead]);
 
   const handleFieldChange = (field: keyof Lead, value: string) => {
-    setEditedLead((prev) => ({ ...prev, [field]: value }));
+    setEditedLead((prev: Partial<Lead>) => ({ ...prev, [field]: value }));
 
     if (field === 'email') {
       if (value && !validateEmail(value)) {
-        setEmailError('Please enter a valid email address');
+        setEmailError(ERROR_MESSAGES.INVALID_EMAIL);
       } else {
         setEmailError(null);
       }
@@ -87,7 +89,7 @@ const LeadDetail = ({
     if (!lead) return;
 
     if (editedLead.email && !validateEmail(editedLead.email)) {
-      setEmailError('Please enter a valid email address');
+      setEmailError(ERROR_MESSAGES.INVALID_EMAIL);
       return;
     }
 
@@ -99,7 +101,7 @@ const LeadDetail = ({
       setIsEditing(false);
       setEditedLead({});
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to update lead');
+      setError(err instanceof Error ? err.message : ERROR_MESSAGES.UPDATE_LEAD_FAILED);
     } finally {
       setIsSaving(false);
     }
@@ -132,7 +134,7 @@ const LeadDetail = ({
       onOpportunityCreated?.();
       onClose();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to convert lead');
+      setError(err instanceof Error ? err.message : ERROR_MESSAGES.CONVERT_LEAD_FAILED);
     } finally {
       setIsConverting(false);
     }
@@ -218,12 +220,12 @@ const LeadDetail = ({
                 <span
                   className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                     currentLead.status === 'new'
-                      ? 'bg-blue-100 text-blue-800'
+                      ? `${STATUS_COLORS.NEW.bg} ${STATUS_COLORS.NEW.text}`
                       : currentLead.status === 'contacted'
-                        ? 'bg-yellow-100 text-yellow-800'
+                        ? `${STATUS_COLORS.CONTACTED.bg} ${STATUS_COLORS.CONTACTED.text}`
                         : currentLead.status === 'qualified'
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-red-100 text-red-800'
+                          ? `${STATUS_COLORS.QUALIFIED.bg} ${STATUS_COLORS.QUALIFIED.text}`
+                          : `${STATUS_COLORS.UNQUALIFIED.bg} ${STATUS_COLORS.UNQUALIFIED.text}`
                   }`}
                 >
                   {currentLead.status.charAt(0).toUpperCase() +
