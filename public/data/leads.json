@@ -1,6 +1,6 @@
 [
   {
-    "id": "lead-1",
+    "id": "lead-001",
     "name": "John Smith",
     "company": "TechCorp Inc",
     "email": "john.smith@techcorp.com",
@@ -9,7 +9,7 @@
     "status": "new"
   },
   {
-    "id": "lead-2",
+    "id": "lead-002",
     "name": "Sarah Johnson",
     "company": "DataFlow Solutions",
     "email": "sarah.j@dataflow.com",
@@ -18,7 +18,7 @@
     "status": "contacted"
   },
   {
-    "id": "lead-3",
+    "id": "lead-003",
     "name": "Mike Chen",
     "company": "CloudTech Systems",
     "email": "m.chen@cloudtech.io",
@@ -27,7 +27,7 @@
     "status": "qualified"
   },
   {
-    "id": "lead-4",
+    "id": "lead-004",
     "name": "Emily Davis",
     "company": "StartupXYZ",
     "email": "emily@startupxyz.com",
@@ -36,12 +36,193 @@
     "status": "new"
   },
   {
-    "id": "lead-5",
+    "id": "lead-005",
     "name": "Robert Wilson",
     "company": "Enterprise Solutions",
     "email": "r.wilson@enterprise.com",
     "source": "cold_call",
     "score": 88,
     "status": "contacted"
+  },
+  {
+    "id": "lead-006",
+    "name": "Jessica Brown",
+    "company": "InnovateLab Corp",
+    "email": "j.brown@innovatelab.com",
+    "source": "website",
+    "score": 73,
+    "status": "qualified"
+  },
+  {
+    "id": "lead-007",
+    "name": "David Martinez",
+    "company": "DigitalEdge LLC",
+    "email": "david@digitaledge.com",
+    "source": "linkedin",
+    "score": 91,
+    "status": "new"
+  },
+  {
+    "id": "lead-008",
+    "name": "Lisa Anderson",
+    "company": "SmartSystems Inc",
+    "email": "lisa.anderson@smartsystems.com",
+    "source": "referral",
+    "score": 67,
+    "status": "contacted"
+  },
+  {
+    "id": "lead-009",
+    "name": "Chris Taylor",
+    "company": "NextGen Technologies",
+    "email": "c.taylor@nextgen.io",
+    "source": "conference",
+    "score": 84,
+    "status": "qualified"
+  },
+  {
+    "id": "lead-010",
+    "name": "Amanda White",
+    "company": "FutureTech Group",
+    "email": "amanda@futuretech.com",
+    "source": "cold_call",
+    "score": 76,
+    "status": "unqualified"
+  },
+
+  {
+    "id": "lead-011",
+    "name": "James Garcia",
+    "company": "GlobalTech Partners",
+    "email": "james.garcia@globaltech.com",
+    "source": "website",
+    "score": 89,
+    "status": "new"
+  },
+  {
+    "id": "lead-012",
+    "name": "Jennifer Lopez",
+    "company": "MegaCorp Enterprises",
+    "email": "j.lopez@megacorp.com",
+    "source": "referral",
+    "score": 95,
+    "status": "contacted"
+  },
+  {
+    "id": "lead-013",
+    "name": "Michael Rodriguez",
+    "company": "PowerSoft Solutions",
+    "email": "m.rodriguez@powersoft.com",
+    "source": "linkedin",
+    "score": 72,
+    "status": "qualified"
+  },
+  {
+    "id": "lead-014",
+    "name": "Ashley Hernandez",
+    "company": "CyberNet Systems",
+    "email": "ashley@cybernet.io",
+    "source": "conference",
+    "score": 81,
+    "status": "new"
+  },
+  {
+    "id": "lead-015",
+    "name": "William Thompson",
+    "company": "InfoTech Corp",
+    "email": "w.thompson@infotech.com",
+    "source": "cold_call",
+    "score": 63,
+    "status": "contacted"
+  },
+  {
+    "id": "lead-016",
+    "name": "Brittany Moore",
+    "company": "WebSolutions LLC",
+    "email": "brittany@websolutions.com",
+    "source": "website",
+    "score": 87,
+    "status": "qualified"
+  },
+  {
+    "id": "lead-017",
+    "name": "Richard Jackson",
+    "company": "DataMine Technologies",
+    "email": "r.jackson@datamine.com",
+    "source": "referral",
+    "score": 74,
+    "status": "unqualified"
+  },
+  {
+    "id": "lead-018",
+    "name": "Samantha Martin",
+    "company": "CloudFirst Inc",
+    "email": "samantha@cloudfirst.com",
+    "source": "linkedin",
+    "score": 93,
+    "status": "new"
+  },
+  {
+    "id": "lead-019",
+    "name": "Joseph Lee",
+    "company": "TechVision Group",
+    "email": "joseph.lee@techvision.com",
+    "source": "conference",
+    "score": 68,
+    "status": "contacted"
+  },
+  {
+    "id": "lead-020",
+    "name": "Nicole Perez",
+    "company": "DigitalWorks Corp",
+    "email": "nicole@digitalworks.com",
+    "source": "cold_call",
+    "score": 82,
+    "status": "qualified"
+  },
+  {
+    "id": "lead-021",
+    "name": "Thomas Wilson",
+    "company": "SmartData Solutions",
+    "email": "thomas@smartdata.com",
+    "source": "website",
+    "score": 77,
+    "status": "new"
+  },
+  {
+    "id": "lead-022",
+    "name": "Elizabeth Clark",
+    "company": "TechFlow Systems",
+    "email": "elizabeth@techflow.io",
+    "source": "referral",
+    "score": 90,
+    "status": "contacted"
+  },
+  {
+    "id": "lead-023",
+    "name": "Charles Rodriguez",
+    "company": "CyberSoft Inc",
+    "email": "charles@cybersoft.com",
+    "source": "linkedin",
+    "score": 71,
+    "status": "qualified"
+  },
+  {
+    "id": "lead-024",
+    "name": "Heather Lewis",
+    "company": "InfoSys Technologies",
+    "email": "heather@infosys.com",
+    "source": "conference",
+    "score": 85,
+    "status": "unqualified"
+  },
+  {
+    "id": "lead-025",
+    "name": "Christopher Walker",
+    "company": "WebTech Corp",
+    "email": "chris@webtech.com",
+    "source": "cold_call",
+    "score": 64,
+    "status": "new"
   }
 ]
