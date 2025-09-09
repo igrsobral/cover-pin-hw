@@ -29,22 +29,22 @@ const LeadFilters = ({
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1">
             <Input
-            label="Search"
-            placeholder="Search by name or company..."
-            value={filters.search}
-            onChange={(e) => onFilterChange('search', e.target.value)}
-          />
-        </div>
+              label="Search"
+              placeholder="Search by name or company..."
+              value={filters.search}
+              onChange={(e) => onFilterChange('search', e.target.value)}
+            />
+          </div>
 
-        <div className="w-full sm:w-48">
-          <Select
-            label="Status"
-            options={statusOptions}
-            value={filters.status}
-            onChange={(e) => onFilterChange('status', e.target.value)}
-          />
+          <div className="w-full sm:w-48">
+            <Select
+              label="Status"
+              options={statusOptions}
+              value={filters.status}
+              onChange={(e) => onFilterChange('status', e.target.value)}
+            />
+          </div>
         </div>
-      </div>
 
         {hasActiveFilters && (
           <div className="flex justify-start sm:justify-end">
@@ -55,7 +55,7 @@ const LeadFilters = ({
             >
               Clear Filters
             </Button>
-    </div>
+          </div>
         )}
       </div>
     </div>

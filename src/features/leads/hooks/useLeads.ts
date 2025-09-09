@@ -1,25 +1,41 @@
-import { fetchLeads, updateLead } from '@shared/data/api';
-import { useAsync } from '@shared/hooks';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo } from 'react';
+import { SUCCESS_MESSAGES } from '@constants/errors';
+import { fetchLeads, updateLead } from '@data/api';
+
+import {
+  useAsync,
+  useOptimisticUpdate,
+  useErrorHandler,
+} from '@shared/hooks';
+
 import type { Lead } from '../types';
 
 const useLeads = () => {
-  const [leads, setLeads] = useState<Lead[]>([]);
-  const [optimisticUpdates, setOptimisticUpdates] = useState<Map<string, Lead>>(
-    new Map()
-  );
+  const { handleError } = useErrorHandler();
+
+  const { performOptimisticUpdate, getOptimisticValue, hasOptimisticUpdate } =
+    useOptimisticUpdate<Lead, string>({
+      onSuccess: () => {
+        console.log(SUCCESS_MESSAGES.LEAD_UPDATED);
+      },
+      onError: handleError,
+    });
 
   const {
     data: fetchedLeads,
     loading,
     error,
     execute: refetch,
-  } = useAsync(fetchLeads, [], { immediate: true });
+  } = useAsync(fetchLeads, [], {
+    immediate: true,
+  });
 
   const updateLeadOptimistic = useCallback(
     async (leadId: string, updates: Partial<Lead>) => {
-      const currentLeads = fetchedLeads || leads;
-      const leadToUpdate = currentLeads.find((lead) => lead.id === leadId);
+      const currentLeads = fetchedLeads || [];
+      const leadToUpdate = currentLeads.find(
+        (lead: Lead) => lead.id === leadId
+      );
 
       if (!leadToUpdate) {
         throw new Error('Lead not found');
@@ -27,44 +43,42 @@ const useLeads = () => {
 
       const optimisticLead = { ...leadToUpdate, ...updates };
 
-      setOptimisticUpdates((prev) => new Map(prev).set(leadId, optimisticLead));
-
-      try {
-        const updatedLead = await updateLead(leadId, updates);
-        setOptimisticUpdates((prev) => {
-          const newMap = new Map(prev);
-          newMap.delete(leadId);
-          return newMap;
-        });
-
-        setLeads((prevLeads) =>
-          prevLeads.map((lead) => (lead.id === leadId ? updatedLead : lead))
-        );
-
-        return updatedLead;
-      } catch (error) {
-        setOptimisticUpdates((prev) => {
-          const newMap = new Map(prev);
-          newMap.delete(leadId);
-          return newMap;
-        });
-        throw error;
-      }
+      return performOptimisticUpdate(leadId, optimisticLead, () =>
+        updateLead(leadId, updates)
+      );
     },
-    [fetchedLeads, leads]
+    [fetchedLeads, performOptimisticUpdate]
   );
 
-  const getLeadsWithOptimisticUpdates = useCallback(() => {
-    const baseLeads = fetchedLeads || leads;
-    return baseLeads.map((lead) => optimisticUpdates.get(lead.id) || lead);
-  }, [fetchedLeads, leads, optimisticUpdates]);
+  const leadsWithOptimisticUpdates = useMemo(() => {
+    const baseLeads = fetchedLeads || [];
+    return baseLeads.map((lead: Lead) => getOptimisticValue(lead.id, lead));
+  }, [fetchedLeads, getOptimisticValue]);
+
+  const getLeadById = useCallback(
+    (leadId: string): Lead | undefined => {
+      return leadsWithOptimisticUpdates.find(
+        (lead: Lead) => lead.id === leadId
+      );
+    },
+    [leadsWithOptimisticUpdates]
+  );
+
+  const isLeadUpdating = useCallback(
+    (leadId: string): boolean => {
+      return hasOptimisticUpdate(leadId);
+    },
+    [hasOptimisticUpdate]
+  );
 
   return {
-    leads: getLeadsWithOptimisticUpdates(),
+    leads: leadsWithOptimisticUpdates,
     loading,
     error,
     refetch,
     updateLead: updateLeadOptimistic,
+    getLeadById,
+    isLeadUpdating,
   };
 };
 

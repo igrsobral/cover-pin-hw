@@ -1,10 +1,8 @@
-import {
-  DEFAULT_FILTERS,
-  DEFAULT_SORT,
-  STORAGE_KEYS,
-} from '@shared/constants';
-import { useLocalStorage } from '@shared/hooks';
 import { useCallback, useMemo } from 'react';
+import { DEFAULT_FILTERS, DEFAULT_SORT, STORAGE_KEYS } from '@constants/index';
+
+import { useLocalStorage, useCollection } from '@shared/hooks';
+
 import type { Lead, LeadFilters, SortConfig } from '../types';
 
 const useLeadFilters = (leads: Lead[]) => {
@@ -15,77 +13,114 @@ const useLeadFilters = (leads: Lead[]) => {
 
   const [sortConfig, setSortConfig] = useLocalStorage<SortConfig>(
     STORAGE_KEYS.LEAD_SORT,
-    DEFAULT_SORT.LEADS
+    DEFAULT_SORT.LEADS as SortConfig
   );
+
+  const statusFilter = useCallback(
+    (lead: Lead) => {
+      return filters.status === 'all' || lead.status === filters.status;
+    },
+    [filters.status]
+  );
+
+  const {
+    items: filteredLeads,
+    searchTerm,
+    setSearchTerm,
+    handleSort,
+    clearSearch,
+    reset: resetCollection,
+    totalCount,
+    hasActiveFilters,
+    isSearching,
+  } = useCollection(leads, {
+    searchFields: ['name', 'company', 'email'],
+    sortField: sortConfig.field,
+    sortDirection: sortConfig.direction,
+    filterFn: statusFilter,
+    debounceDelay: 300,
+  });
 
   const updateFilter = useCallback(
     (key: keyof LeadFilters, value: string) => {
-      setFilters((prev: LeadFilters) => ({ ...prev, [key]: value }));
+      if (key === 'search') {
+        setSearchTerm(value);
+      } else {
+        setFilters(
+          (prev: LeadFilters) => ({ ...prev, [key]: value }) as LeadFilters
+        );
+      }
     },
-    [setFilters]
+    [setFilters, setSearchTerm]
   );
 
   const updateSort = useCallback(
     (field: keyof Lead) => {
-      setSortConfig((prev: SortConfig) => ({
+      handleSort(field);
+      setSortConfig({
         field,
         direction:
-          prev.field === field && prev.direction === 'desc' ? 'asc' : 'desc',
-      }));
+          sortConfig.field === field && sortConfig.direction === 'desc'
+            ? 'asc'
+            : 'desc',
+      });
     },
-    [setSortConfig]
+    [handleSort, setSortConfig]
   );
 
   const clearFilters = useCallback(() => {
     setFilters(DEFAULT_FILTERS.LEADS);
-  }, [setFilters]);
+    clearSearch();
+  }, [setFilters, clearSearch]);
 
-  const filteredAndSortedLeads = useMemo(() => {
-    let result = [...leads];
+  const resetAll = useCallback(() => {
+    setFilters(DEFAULT_FILTERS.LEADS);
+    setSortConfig(DEFAULT_SORT.LEADS);
+    resetCollection();
+  }, [setFilters, setSortConfig, resetCollection]);
 
-    // Apply search filter
-    if (filters.search) {
-      const searchLower = filters.search.toLowerCase();
-      result = result.filter(
-        (lead) =>
-          lead.name.toLowerCase().includes(searchLower) ||
-          lead.company.toLowerCase().includes(searchLower)
-      );
-    }
+  const syncedFilters = useMemo(
+    () => ({
+      ...filters,
+      search: searchTerm,
+    }),
+    [filters, searchTerm]
+  );
 
-    // Apply status filter
-    if (filters.status !== 'all') {
-      result = result.filter((lead) => lead.status === filters.status);
-    }
+  const filterStats = useMemo(() => {
+    const totalLeads = leads.length;
+    const filteredCount = filteredLeads.length;
+    const statusCounts = leads.reduce(
+      (acc, lead) => {
+        acc[lead.status] = (acc[lead.status] || 0) + 1;
+        return acc;
+      },
+      {} as Record<string, number>
+    );
 
-    // Apply sorting
-    result.sort((a, b) => {
-      const aValue = a[sortConfig.field];
-      const bValue = b[sortConfig.field];
-
-      if (typeof aValue === 'string' && typeof bValue === 'string') {
-        const comparison = aValue.localeCompare(bValue);
-        return sortConfig.direction === 'asc' ? comparison : -comparison;
-      }
-
-      if (typeof aValue === 'number' && typeof bValue === 'number') {
-        const comparison = aValue - bValue;
-        return sortConfig.direction === 'asc' ? comparison : -comparison;
-      }
-
-      return 0;
-    });
-
-    return result;
-  }, [leads, filters, sortConfig]);
+    return {
+      total: totalLeads,
+      filtered: filteredCount,
+      statusCounts,
+      isFiltered: hasActiveFilters || filters.status !== 'all',
+    };
+  }, [leads, filteredLeads.length, hasActiveFilters, filters.status]);
 
   return {
-    filters,
+    // Backward compatibility
+    filters: syncedFilters,
     sortConfig,
-    filteredLeads: filteredAndSortedLeads,
+    filteredLeads,
     updateFilter,
     updateSort,
     clearFilters,
+
+    // Enhanced features
+    resetAll,
+    filterStats,
+    isSearching,
+    totalCount,
+    hasActiveFilters: hasActiveFilters || filters.status !== 'all',
   };
 };
 

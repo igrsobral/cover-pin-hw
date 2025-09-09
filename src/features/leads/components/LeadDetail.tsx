@@ -19,7 +19,10 @@ interface LeadDetailProps {
   lead: Lead | null;
   isOpen: boolean;
   onClose: () => void;
-  onLeadUpdate: (leadId: string, updates: Partial<Lead>) => Promise<Lead | null>;
+  onLeadUpdate: (
+    leadId: string,
+    updates: Partial<Lead>
+  ) => Promise<Lead | null>;
   onOpportunityCreated?: () => void;
 }
 
