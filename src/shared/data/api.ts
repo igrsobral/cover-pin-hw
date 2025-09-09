@@ -1,5 +1,6 @@
-import type { Lead, Opportunity } from '../types';
 import { API_ENDPOINTS, SIMULATION_CONFIG, ERROR_MESSAGES } from '../constants';
+
+import type { Lead, Opportunity } from '../types';
 
 const simulateDelay = () => {
   const delay =

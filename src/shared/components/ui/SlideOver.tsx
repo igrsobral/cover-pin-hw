@@ -29,7 +29,7 @@ const SlideOver = ({ isOpen, onClose, title, children }: SlideOverProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 overflow-hidden z-50">
+    <div className="fixed inset-0 overflow-hidden z-200">
       <div className="absolute inset-0 overflow-hidden">
         <div
           className="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity"

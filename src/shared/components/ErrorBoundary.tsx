@@ -1,6 +1,8 @@
 import { Component, type ReactNode } from 'react';
-import { ErrorMessage } from './ui';
+
 import { ERROR_MESSAGES } from '../constants';
+
+import { ErrorMessage } from './ui';
 
 interface Props {
   children: ReactNode;

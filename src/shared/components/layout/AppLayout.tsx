@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import Navigation, { type NavigationTab } from './Navigation';
+
 import { LeadsPage } from '../../../features/leads/components';
 import { OpportunitiesPage } from '../../../features/opportunities/components';
+
+import Navigation, { type NavigationTab } from './Navigation';
 
 const AppLayout = () => {
   const [activeTab, setActiveTab] = useState<NavigationTab>('leads');
