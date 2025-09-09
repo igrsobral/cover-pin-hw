@@ -3,10 +3,13 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2022",
     "useDefineForClassFields": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "skipLibCheck": true,
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -14,7 +17,42 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
-
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@leads/*": [
+        "src/features/leads/*"
+      ],
+      "@opportunities/*": [
+        "src/features/opportunities/*"
+      ],
+      "@components/*": [
+        "src/shared/components/*"
+      ],
+      "@hooks/*": [
+        "src/shared/hooks/*"
+      ],
+      "@utils/*": [
+        "src/shared/utils/*"
+      ],
+      "@types/*": [
+        "src/shared/types/*"
+      ],
+      "@data/*": [
+        "src/shared/data/*"
+      ],
+      "@constants/*": [
+        "src/shared/constants/*"
+      ],
+      "@config/*": [
+        "src/shared/config/*"
+      ]
+    },
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -23,5 +61,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }
