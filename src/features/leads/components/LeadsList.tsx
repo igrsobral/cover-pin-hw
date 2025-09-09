@@ -77,7 +77,7 @@ const LeadsList = memo(
     );
 
     const getStatusBadge = useCallback((status: Lead['status']) => {
-      const statusColors = {
+      const statusColors: Record<Lead['status'], string> = {
         new: 'bg-blue-100 text-blue-800',
         contacted: 'bg-yellow-100 text-yellow-800',
         qualified: 'bg-green-100 text-green-800',

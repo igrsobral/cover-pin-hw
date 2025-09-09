@@ -15,14 +15,14 @@ const useLeadFilters = (leads: Lead[]) => {
 
   const updateFilter = useCallback(
     (key: keyof LeadFilters, value: string) => {
-      setFilters((prev) => ({ ...prev, [key]: value }));
+      setFilters((prev: LeadFilters) => ({ ...prev, [key]: value }));
     },
     [setFilters]
   );
 
   const updateSort = useCallback(
     (field: keyof Lead) => {
-      setSortConfig((prev) => ({
+      setSortConfig((prev: SortConfig) => ({
         field,
         direction:
           prev.field === field && prev.direction === 'desc' ? 'asc' : 'desc',

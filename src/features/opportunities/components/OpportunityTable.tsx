@@ -16,7 +16,7 @@ const OpportunityTable = ({
   onRetry,
 }: OpportunityTableProps) => {
   const getStageColor = (stage: Opportunity['stage']) => {
-    const stageColors = {
+    const stageColors: Record<Opportunity['stage'], string> = {
       prospecting: 'bg-blue-100 text-blue-800',
       qualification: 'bg-yellow-100 text-yellow-800',
       proposal: 'bg-purple-100 text-purple-800',
