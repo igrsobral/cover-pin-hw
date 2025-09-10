@@ -1,6 +1,8 @@
 import { useCallback, useState } from 'react';
 import { ERROR_MESSAGES } from '@constants/errors';
 
+import { showToast } from '@shared/utils';
+
 interface ErrorState {
   error: string | null;
   hasError: boolean;
@@ -9,6 +11,7 @@ interface ErrorState {
 interface UseErrorHandlerOptions {
   onError?: (error: Error) => void;
   defaultMessage?: string;
+  showToast?: boolean;
 }
 
 export const useErrorHandler = (options: UseErrorHandlerOptions = {}) => {
@@ -28,6 +31,10 @@ export const useErrorHandler = (options: UseErrorHandlerOptions = {}) => {
         error: errorMessage,
         hasError: true,
       });
+
+      if (options.showToast !== false) {
+        showToast.error(errorMessage);
+      }
 
       if (options.onError && error instanceof Error) {
         options.onError(error);

@@ -1,28 +1,32 @@
-import { fetchOpportunities } from '@data/api';
 import { useCallback, useMemo } from 'react';
+import { fetchOpportunities } from '@data/api';
 
-import {
-  useAsync,
-  useCollection,
-  useErrorHandler,
-} from '@shared/hooks';
+import { useAsync, useCollection, useErrorHandler } from '@shared/hooks';
 
 import type { Opportunity } from '../types';
 
 const useOpportunities = () => {
   const { handleError } = useErrorHandler();
 
+  const asyncOptions = useMemo(
+    () => ({
+      immediate: true,
+      onError: handleError,
+    }),
+    [handleError]
+  );
+
   const {
     data: fetchedOpportunities,
     loading,
     error,
     execute: refetch,
-  } = useAsync(fetchOpportunities, [], {
-    immediate: true,
-    onError: handleError,
-  });
+  } = useAsync(fetchOpportunities, asyncOptions);
 
-  const opportunities = fetchedOpportunities || [];
+  const opportunities = useMemo(
+    () => fetchedOpportunities || [],
+    [fetchedOpportunities]
+  );
 
   const {
     items: filteredOpportunities,
@@ -57,8 +61,11 @@ const useOpportunities = () => {
   // Calculate opportunity statistics
   const opportunityStats = useMemo(() => {
     const stats = opportunities.reduce(
-      (acc: any, opp: Opportunity) => {
-        acc.totalAmount += opp.amount;
+      (
+        acc: { totalAmount: number; stageCount: Record<string, number> },
+        opp: Opportunity
+      ) => {
+        acc.totalAmount += opp.amount || 0;
         acc.stageCount[opp.stage] = (acc.stageCount[opp.stage] || 0) + 1;
         return acc;
       },
