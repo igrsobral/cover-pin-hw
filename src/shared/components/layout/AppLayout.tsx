@@ -1,12 +1,25 @@
 import { useState } from 'react';
 
-import { LeadsPage } from '../../../features/leads/components';
-import { OpportunitiesPage } from '../../../features/opportunities/components';
+import { LeadsPage } from '@/features/leads/components';
+import { OpportunitiesPage } from '@/features/opportunities/components';
 
+import Breadcrumb from './Breadcrumb';
+import Header from './Header';
 import Navigation, { type NavigationTab } from './Navigation';
 
 const AppLayout = () => {
   const [activeTab, setActiveTab] = useState<NavigationTab>('leads');
+
+  const getBreadcrumbItems = () => {
+    const items = [
+      { label: 'Dashboard', href: '/' },
+      {
+        label: activeTab === 'leads' ? 'Leads' : 'Opportunities',
+        current: true,
+      },
+    ];
+    return items;
+  };
 
   const renderContent = () => {
     switch (activeTab) {
@@ -20,17 +33,9 @@ const AppLayout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4 sm:py-6">
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
-              Mini Seller Console
-            </h1>
-          </div>
-        </div>
-      </header>
-
+    <div className="min-h-screen bg-background">
+      <Header />
+      <Breadcrumb items={getBreadcrumbItems()} />
       <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
 
       <main className="max-w-7xl mx-auto py-4 sm:py-6 px-4 sm:px-6 lg:px-8">
