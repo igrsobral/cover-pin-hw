@@ -5,7 +5,7 @@ import {
   useAsync,
   useCollection,
   useErrorHandler,
-} from '../../../shared/hooks';
+} from '@shared/hooks';
 
 import type { Opportunity } from '../types';
 
