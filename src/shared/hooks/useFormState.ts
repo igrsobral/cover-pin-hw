@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { useDebounce } from './useDebounce';
 
@@ -50,7 +50,7 @@ export const useFormState = <T extends Record<string, any>>(
     (field: keyof T, value: T[keyof T]): string | null => {
       if (!validationRules || typeof validationRules !== 'object') return null;
 
-      const rules = (validationRules as any)[field];
+      const rules = (validationRules as ValidationRules<T>)[field];
       if (!rules || !Array.isArray(rules)) return null;
 
       for (const rule of rules) {
