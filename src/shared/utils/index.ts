@@ -6,6 +6,7 @@ export * from './string';
 export * from './array';
 export * from './object';
 export * from './config';
+export * from './responsive';
 
 // Re-export commonly used utilities for convenience
 export { validateEmail, validateRequired, validateScore } from './validation';
@@ -20,3 +21,4 @@ export {
 export { debounce, throttle } from './performance';
 export { unique, sortBy, groupBy } from './array';
 export { pick, omit, isEmpty } from './object';
+export { getViewportInfo, isBreakpoint } from './responsive';

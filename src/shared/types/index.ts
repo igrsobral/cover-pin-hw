@@ -40,6 +40,6 @@ export interface LeadFilters {
 }
 
 export interface SortConfig {
-  field: keyof Lead;
+  field: string;
   direction: 'asc' | 'desc';
 }
