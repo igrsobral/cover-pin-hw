@@ -3,7 +3,7 @@ import { type ReactNode, useEffect, useState } from 'react';
 interface SlideOverProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
+  title?: string;
   children: ReactNode;
 }
 
@@ -25,17 +25,27 @@ const SlideOver = ({ isOpen, onClose, title, children }: SlideOverProps) => {
       setTimeout(() => setIsAnimating(true), 10);
     } else {
       setIsAnimating(false);
+      document.body.style.overflow = '';
       const timer = setTimeout(() => {
         setIsVisible(false);
-        document.body.style.overflow = 'unset';
       }, 300);
-      return () => clearTimeout(timer);
+
+      return () => {
+        clearTimeout(timer);
+        document.removeEventListener('keydown', handleEscape);
+      };
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
 
   const handleClose = () => {
     setIsAnimating(false);

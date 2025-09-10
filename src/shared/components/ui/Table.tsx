@@ -160,19 +160,18 @@ const Table = <T extends object>({
   }
 
   return (
-    <div
-      className={`bg-white shadow-sm border border-gray-200 rounded-lg overflow-hidden ${className}`}
-    >
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
+    <div className={`bg-card rounded-lg overflow-hidden ${className}`}>
+      {/* Desktop Table View */}
+      <div className="hidden md:block overflow-x-auto">
+        <table className="min-w-full">
+          <thead>
+            <tr className="border-b border-border">
               {columns.map((column) => (
                 <th
                   key={String(column.key)}
-                  className={`group px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider ${
+                  className={`group px-6 py-3 text-left text-sm font-medium text-muted-foreground ${
                     column.sortable && onSort
-                      ? 'cursor-pointer hover:bg-gray-100 transition-colors duration-150'
+                      ? 'cursor-pointer hover:text-foreground transition-colors duration-150'
                       : ''
                   } ${column.className || ''}`}
                   onClick={() => {
@@ -193,19 +192,19 @@ const Table = <T extends object>({
               ))}
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-100">
+          <tbody>
             {data.map((item, index) => (
               <tr
                 key={index}
-                className={`transition-colors duration-150 hover:bg-gray-50 ${
-                  onRowClick ? 'cursor-pointer hover:bg-blue-50' : ''
+                className={`bg-white border-b border-border last:border-b-0 transition-colors duration-150 hover:bg-muted/50 ${
+                  onRowClick ? 'cursor-pointer' : ''
                 }`}
                 onClick={() => onRowClick?.(item)}
               >
                 {columns.map((column) => (
                   <td
                     key={String(column.key)}
-                    className="px-6 py-4 text-sm text-gray-900"
+                    className="px-6 py-4 text-sm text-foreground"
                   >
                     {column.render
                       ? column.render(item)
@@ -216,6 +215,39 @@ const Table = <T extends object>({
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="md:hidden space-y-3 p-4">
+        {data.map((item, index) => (
+          <div
+            key={index}
+            className={`bg-background border border-border rounded-lg p-4 space-y-3 transition-colors duration-150 hover:bg-muted/50 ${
+              onRowClick ? 'cursor-pointer' : ''
+            }`}
+            onClick={() => onRowClick?.(item)}
+          >
+            {columns.map((column) => {
+              const value = column.render
+                ? column.render(item)
+                : String((item as any)[column.key] || '—');
+
+              return (
+                <div
+                  key={String(column.key)}
+                  className="flex justify-between items-start"
+                >
+                  <span className="text-sm font-medium text-muted-foreground min-w-0 flex-shrink-0 mr-3">
+                    {column.label}:
+                  </span>
+                  <div className="text-sm text-foreground text-right flex-1 min-w-0">
+                    {value}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ))}
       </div>
     </div>
   );
