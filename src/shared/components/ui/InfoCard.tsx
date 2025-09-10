@@ -24,7 +24,7 @@ const InfoCard = ({
       `}
     >
       <div className="flex items-center space-x-2 mb-3">
-        {icon && <div className="text-gray-500">{icon}</div>}
+        {icon && <div className="text-gray-700">{icon}</div>}
         <h3 className="text-sm font-medium text-gray-700">{title}</h3>
       </div>
       <div className="text-sm text-gray-900">{children}</div>
