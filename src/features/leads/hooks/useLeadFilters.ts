@@ -27,7 +27,7 @@ const useLeadFilters = (leads: Lead[]) => {
     items: filteredLeads,
     searchTerm,
     setSearchTerm,
-    handleSort,
+    handleSort: collectionHandleSort,
     clearSearch,
     reset: resetCollection,
     totalCount,
@@ -35,8 +35,6 @@ const useLeadFilters = (leads: Lead[]) => {
     isSearching,
   } = useCollection(leads, {
     searchFields: ['name', 'company', 'email'],
-    sortField: sortConfig.field,
-    sortDirection: sortConfig.direction,
     filterFn: statusFilter,
     debounceDelay: 300,
   });
@@ -56,7 +54,7 @@ const useLeadFilters = (leads: Lead[]) => {
 
   const updateSort = useCallback(
     (field: keyof Lead) => {
-      handleSort(field);
+      collectionHandleSort(field);
       setSortConfig({
         field,
         direction:
@@ -65,7 +63,7 @@ const useLeadFilters = (leads: Lead[]) => {
             : 'desc',
       });
     },
-    [handleSort, setSortConfig]
+    [collectionHandleSort, setSortConfig]
   );
 
   const clearFilters = useCallback(() => {
