@@ -51,9 +51,18 @@ const LoadingSpinner = ({
         role="status"
         aria-label="Loading"
       >
-        <div className={`${dotSizes[size]} bg-${color}-600 rounded-full animate-bounce`} style={{ animationDelay: '0ms' }}></div>
-        <div className={`${dotSizes[size]} bg-${color}-600 rounded-full animate-bounce`} style={{ animationDelay: '150ms' }}></div>
-        <div className={`${dotSizes[size]} bg-${color}-600 rounded-full animate-bounce`} style={{ animationDelay: '300ms' }}></div>
+        <div
+          className={`${dotSizes[size]} bg-${color}-600 rounded-full animate-bounce`}
+          style={{ animationDelay: '0ms' }}
+        ></div>
+        <div
+          className={`${dotSizes[size]} bg-${color}-600 rounded-full animate-bounce`}
+          style={{ animationDelay: '150ms' }}
+        ></div>
+        <div
+          className={`${dotSizes[size]} bg-${color}-600 rounded-full animate-bounce`}
+          style={{ animationDelay: '300ms' }}
+        ></div>
         <span className="sr-only">Loading...</span>
       </div>
     );
@@ -66,7 +75,9 @@ const LoadingSpinner = ({
         role="status"
         aria-label="Loading"
       >
-        <div className={`${sizeClasses[size]} bg-${color}-600 rounded-full animate-pulse opacity-75`}></div>
+        <div
+          className={`${sizeClasses[size]} bg-${color}-600 rounded-full animate-pulse opacity-75`}
+        ></div>
         <span className="sr-only">Loading...</span>
       </div>
     );
@@ -79,10 +90,22 @@ const LoadingSpinner = ({
         role="status"
         aria-label="Loading"
       >
-        <div className={`${barSizes[size]} bg-${color}-600 animate-pulse`} style={{ animationDelay: '0ms' }}></div>
-        <div className={`${barSizes[size]} bg-${color}-600 animate-pulse`} style={{ animationDelay: '150ms' }}></div>
-        <div className={`${barSizes[size]} bg-${color}-600 animate-pulse`} style={{ animationDelay: '300ms' }}></div>
-        <div className={`${barSizes[size]} bg-${color}-600 animate-pulse`} style={{ animationDelay: '450ms' }}></div>
+        <div
+          className={`${barSizes[size]} bg-${color}-600 animate-pulse`}
+          style={{ animationDelay: '0ms' }}
+        ></div>
+        <div
+          className={`${barSizes[size]} bg-${color}-600 animate-pulse`}
+          style={{ animationDelay: '150ms' }}
+        ></div>
+        <div
+          className={`${barSizes[size]} bg-${color}-600 animate-pulse`}
+          style={{ animationDelay: '300ms' }}
+        ></div>
+        <div
+          className={`${barSizes[size]} bg-${color}-600 animate-pulse`}
+          style={{ animationDelay: '450ms' }}
+        ></div>
         <span className="sr-only">Loading...</span>
       </div>
     );

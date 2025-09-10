@@ -38,8 +38,3 @@ export interface LeadFilters {
   search: string;
   status: LeadStatus | 'all';
 }
-
-export interface SortConfig {
-  field: string;
-  direction: 'asc' | 'desc';
-}

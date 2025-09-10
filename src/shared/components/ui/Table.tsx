@@ -30,7 +30,7 @@ interface TableProps<T> {
   className?: string;
 }
 
-const Table = <T extends Record<string, any>>({
+const Table = <T extends object>({
   data,
   columns,
   loading = false,
@@ -45,19 +45,49 @@ const Table = <T extends Record<string, any>>({
   const getSortIcon = (columnKey: string) => {
     if (!sortConfig || sortConfig.field !== columnKey) {
       return (
-        <svg className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+        <svg
+          className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 9l4-4 4 4m0 6l-4 4-4-4"
+          />
         </svg>
       );
     }
 
     return sortConfig.direction === 'asc' ? (
-      <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+      <svg
+        className="w-4 h-4 text-blue-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M5 15l7-7 7 7"
+        />
       </svg>
     ) : (
-      <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      <svg
+        className="w-4 h-4 text-blue-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M19 9l-7 7-7-7"
+        />
       </svg>
     );
   };
@@ -78,10 +108,17 @@ const Table = <T extends Record<string, any>>({
       <div className="text-center py-16">
         <div className="mx-auto w-12 h-12 text-red-500 mb-4">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+            />
           </svg>
         </div>
-        <h3 className="text-lg font-medium text-gray-900 mb-2">Error loading data</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">
+          Error loading data
+        </h3>
         <p className="text-gray-600">{error}</p>
         {onRetry && (
           <button
@@ -105,22 +142,27 @@ const Table = <T extends Record<string, any>>({
         ) : (
           <div className="mx-auto w-12 h-12 text-gray-400 mb-4">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+              />
             </svg>
           </div>
         )}
         <h3 className="text-lg font-medium text-gray-900 mb-2">
           {emptyState.title}
         </h3>
-        <p className="text-gray-600">
-          {emptyState.description}
-        </p>
+        <p className="text-gray-600">{emptyState.description}</p>
       </div>
     );
   }
 
   return (
-    <div className={`bg-white shadow-sm border border-gray-200 rounded-lg overflow-hidden ${className}`}>
+    <div
+      className={`bg-white shadow-sm border border-gray-200 rounded-lg overflow-hidden ${className}`}
+    >
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -129,11 +171,13 @@ const Table = <T extends Record<string, any>>({
                 <th
                   key={String(column.key)}
                   className={`group px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider ${
-                    column.sortable && onSort ? 'cursor-pointer hover:bg-gray-100 transition-colors duration-150' : ''
+                    column.sortable && onSort
+                      ? 'cursor-pointer hover:bg-gray-100 transition-colors duration-150'
+                      : ''
                   } ${column.className || ''}`}
                   onClick={() => {
                     if (column.sortable && onSort) {
-                      onSort(String(column.key));
+                      onSort(String(column.key) as keyof T);
                     }
                   }}
                 >
@@ -152,7 +196,7 @@ const Table = <T extends Record<string, any>>({
           <tbody className="bg-white divide-y divide-gray-100">
             {data.map((item, index) => (
               <tr
-                key={item.id || index}
+                key={index}
                 className={`transition-colors duration-150 hover:bg-gray-50 ${
                   onRowClick ? 'cursor-pointer hover:bg-blue-50' : ''
                 }`}
@@ -165,7 +209,7 @@ const Table = <T extends Record<string, any>>({
                   >
                     {column.render
                       ? column.render(item)
-                      : String(item[column.key] || '—')}
+                      : String((item as any)[column.key] || '—')}
                   </td>
                 ))}
               </tr>

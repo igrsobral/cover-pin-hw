@@ -6,4 +6,5 @@ export { default as ErrorMessage } from './ErrorMessage';
 export { default as SlideOver } from './SlideOver';
 export { default as InfoCard } from './InfoCard';
 export { default as Table } from './Table';
+export { default as StatusBadge } from './StatusBadge';
 export type { TableColumn, SortConfig } from './Table';
