@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { ERROR_MESSAGES } from '../constants';
 
@@ -24,15 +24,22 @@ const useAsync = <T>(
     error: null,
   });
 
+  const asyncFunctionRef = useRef(asyncFunction);
+  const optionsRef = useRef(options);
+  const hasExecutedRef = useRef(false);
+
+  asyncFunctionRef.current = asyncFunction;
+  optionsRef.current = options;
+
   const execute = useCallback(async (): Promise<T | null> => {
     setState((prev) => ({ ...prev, loading: true, error: null }));
 
     try {
-      const data = await asyncFunction();
+      const data = await asyncFunctionRef.current();
       setState({ data, loading: false, error: null });
 
-      if (options.onSuccess) {
-        options.onSuccess(data);
+      if (optionsRef.current.onSuccess) {
+        optionsRef.current.onSuccess(data);
       }
 
       return data;
@@ -41,16 +48,17 @@ const useAsync = <T>(
         error instanceof Error ? error.message : ERROR_MESSAGES.GENERIC_ERROR;
       setState({ data: null, loading: false, error: errorMessage });
 
-      if (options.onError && error instanceof Error) {
-        options.onError(error);
+      if (optionsRef.current.onError && error instanceof Error) {
+        optionsRef.current.onError(error);
       }
 
       return null;
     }
-  }, [asyncFunction, options]);
+  }, []);
 
   useEffect(() => {
-    if (options.immediate) {
+    if (options.immediate && !hasExecutedRef.current) {
+      hasExecutedRef.current = true;
       execute();
     }
   }, [execute, options.immediate]);
