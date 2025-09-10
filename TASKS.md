@@ -100,9 +100,9 @@
   - [x] Proper spacing adjustments for different screen sizes
 
 ## Phase 6: Nice-to-Haves (Pick 1-2)
-- [ ] Persist filter/sort in localStorage ✓ (already planned)
-- [ ] Optimistic updates with rollback ✓ (already planned)
-- [ ] Responsive layout (desktop → mobile) ✓ (already planned)
+- [x] Persist filter/sort in localStorage ✓ (already planned)
+- [x] Optimistic updates with rollback ✓ (already planned)
+- [x] Responsive layout (desktop → mobile) ✓ (already planned)
 
 ## Phase 7: Testing & Polish ✅
 - [x] Test with ~25 lead records (sufficient for testing)
