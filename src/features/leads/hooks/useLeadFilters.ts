@@ -1,9 +1,10 @@
-import { DEFAULT_FILTERS, DEFAULT_SORT, STORAGE_KEYS } from '@constants/index';
 import { useCallback, useMemo } from 'react';
+import { DEFAULT_FILTERS, DEFAULT_SORT, STORAGE_KEYS } from '@constants/index';
 
+import type { SortConfig } from '@/shared';
 import { useCollection, useLocalStorage } from '@shared/hooks';
 
-import type { Lead, LeadFilters, SortConfig } from '../types';
+import type { Lead, LeadFilters } from '../types';
 
 const useLeadFilters = (leads: Lead[]) => {
   const [filters, setFilters] = useLocalStorage<LeadFilters>(

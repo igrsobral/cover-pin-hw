@@ -1,5 +1,5 @@
-import { useCallback, useMemo } from 'react';
 import { fetchOpportunities } from '@data/api';
+import { useCallback, useMemo } from 'react';
 
 import {
   useAsync,

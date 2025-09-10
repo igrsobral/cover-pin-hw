@@ -1,10 +1,4 @@
-export type {
-  Lead,
-  LeadStatus,
-  LeadSource,
-  LeadFilters,
-  SortConfig,
-} from '../../shared/types';
+export type { Lead, LeadFilters, LeadSource, LeadStatus } from '@shared/types';
 
 export interface LeadFormData {
   name: string;
