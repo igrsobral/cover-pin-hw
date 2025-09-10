@@ -2,11 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { SUCCESS_MESSAGES } from '@constants/errors';
 import { fetchLeads, updateLead } from '@data/api';
 
-import {
-  useAsync,
-  useOptimisticUpdate,
-  useErrorHandler,
-} from '@shared/hooks';
+import { useAsync, useOptimisticUpdate, useErrorHandler } from '@shared/hooks';
 
 import type { Lead } from '../types';
 

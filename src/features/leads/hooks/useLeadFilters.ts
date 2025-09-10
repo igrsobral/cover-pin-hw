@@ -1,7 +1,7 @@
-import { useCallback, useMemo } from 'react';
 import { DEFAULT_FILTERS, DEFAULT_SORT, STORAGE_KEYS } from '@constants/index';
+import { useCallback, useMemo } from 'react';
 
-import { useLocalStorage, useCollection } from '@shared/hooks';
+import { useCollection, useLocalStorage } from '@shared/hooks';
 
 import type { Lead, LeadFilters, SortConfig } from '../types';
 
