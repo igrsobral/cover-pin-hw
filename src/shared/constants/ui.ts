@@ -13,7 +13,7 @@ export const ANIMATION_DURATIONS = {
   SLIDE_OVER: 300,
 } as const;
 
-export const BREAKPOINTS = {
+export const UI_BREAKPOINTS = {
   SM: 640,
   MD: 768,
   LG: 1024,

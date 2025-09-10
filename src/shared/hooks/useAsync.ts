@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+
 import { ERROR_MESSAGES } from '../constants';
 
 interface AsyncState<T> {
@@ -7,14 +8,16 @@ interface AsyncState<T> {
   error: string | null;
 }
 
-interface UseAsyncOptions {
+interface UseAsyncOptions<T> {
   immediate?: boolean;
+  onSuccess?: (data: T) => void;
+  onError?: (error: Error) => void;
 }
 
 const useAsync = <T>(
   asyncFunction: () => Promise<T>,
   dependencies: unknown[] = [],
-  options: UseAsyncOptions = { immediate: true }
+  options: UseAsyncOptions<T> = { immediate: true }
 ) => {
   const [state, setState] = useState<AsyncState<T>>({
     data: null,
@@ -22,20 +25,30 @@ const useAsync = <T>(
     error: null,
   });
 
-  const execute = useCallback(async () => {
+  const execute = useCallback(async (): Promise<T | null> => {
     setState((prev) => ({ ...prev, loading: true, error: null }));
 
     try {
       const data = await asyncFunction();
       setState({ data, loading: false, error: null });
+
+      if (options.onSuccess) {
+        options.onSuccess(data);
+      }
+
       return data;
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : ERROR_MESSAGES.GENERIC_ERROR;
       setState({ data: null, loading: false, error: errorMessage });
-      throw error;
+
+      if (options.onError && error instanceof Error) {
+        options.onError(error);
+      }
+
+      return null;
     }
-  }, dependencies);
+  }, [asyncFunction, ...dependencies]);
 
   useEffect(() => {
     if (options.immediate) {
