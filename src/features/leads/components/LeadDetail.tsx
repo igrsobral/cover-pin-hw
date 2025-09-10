@@ -167,7 +167,7 @@ const LeadDetail = ({
   };
 
   return (
-    <SlideOver isOpen={isOpen} onClose={onClose} title="Lead Details">
+    <SlideOver isOpen={isOpen} onClose={onClose}>
       <div className="space-y-6">
         {error && (
           <ErrorMessage message={error} onRetry={() => setError(null)} />

@@ -33,7 +33,7 @@ const LeadsList = memo(
           label: 'Name',
           sortable: true,
           render: (lead) => (
-            <div className="text-sm font-medium text-gray-900">{lead.name}</div>
+            <div className="font-medium text-foreground">{lead.name}</div>
           ),
         },
         {
@@ -41,21 +41,21 @@ const LeadsList = memo(
           label: 'Company',
           sortable: true,
           render: (lead) => (
-            <div className="text-sm text-gray-900">{lead.company}</div>
+            <div className="text-foreground">{lead.company}</div>
           ),
         },
         {
           key: 'email',
           label: 'Email',
           render: (lead) => (
-            <div className="text-sm text-gray-700">{lead.email}</div>
+            <div className="text-muted-foreground">{lead.email}</div>
           ),
         },
         {
           key: 'source',
           label: 'Source',
           render: (lead) => (
-            <div className="text-sm text-gray-700">
+            <div className="text-muted-foreground">
               {capitalizeFirst(lead.source.replace('_', ' '))}
             </div>
           ),
@@ -67,12 +67,12 @@ const LeadsList = memo(
           render: (lead) => {
             const getScoreColor = (score: number) => {
               if (score >= 80) return 'text-green-600 font-semibold';
-              if (score >= 60) return 'text-yellow-600 font-medium';
+              if (score >= 60) return 'text-amber-600 font-medium';
               return 'text-red-600';
             };
 
             return (
-              <div className={`text-sm ${getScoreColor(lead.score)}`}>
+              <div className={`font-medium ${getScoreColor(lead.score)}`}>
                 {lead.score}
               </div>
             );
@@ -86,7 +86,7 @@ const LeadsList = memo(
             <StatusBadge
               status={lead.status}
               variant="lead"
-              className="text-xs px-2 py-1"
+              className="text-xs px-3 py-1 font-medium"
             />
           ),
         },

@@ -24,28 +24,19 @@ const LeadFilters = ({
   const hasActiveFilters = filters.search !== '' || filters.status !== 'all';
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 mb-8">
-      <div className=" p-6">
-        {hasActiveFilters && (
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-700 text-sm font-medium rounded-full border border-blue-200">
-              <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
-              Active filters
-            </div>
-          </div>
-        )}
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
+    <div className="bg-card border border-border rounded-lg shadow-sm">
+      <div className="p-4">
+        <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-end">
+          <div className="w-full sm:flex-1 sm:min-w-0">
             <div className="relative">
               <Input
                 label="Search"
                 placeholder="Search by name or company..."
                 value={filters.search}
                 onChange={(e) => onFilterChange('search', e.target.value)}
-                className="pl-10"
+                className="pl-9 h-9"
               />
-              <div className="absolute left-3 top-9 text-gray-400">
+              <div className="absolute left-2.5 top-8 text-muted-foreground">
                 <svg
                   className="w-4 h-4"
                   fill="none"
@@ -63,7 +54,7 @@ const LeadFilters = ({
             </div>
           </div>
 
-          <div className="flex flex-col">
+          <div className="w-full sm:w-48">
             <Select
               label="Status"
               options={statusOptions}
@@ -71,58 +62,45 @@ const LeadFilters = ({
               onChange={(e) => onFilterChange('status', e.target.value)}
             />
           </div>
-        </div>
 
-        {hasActiveFilters && (
-          <div className="flex justify-between items-center mt-6 pt-6 border-t border-gray-100">
-            <div className="text-sm text-gray-600">
-              {filters.search && (
-                <span className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 text-gray-700 rounded-md mr-2">
-                  Search: "{filters.search}"
-                  <button
-                    onClick={() => onFilterChange('search', '')}
-                    className="ml-1 text-gray-500 hover:text-gray-700"
-                  >
-                    ×
-                  </button>
-                </span>
-              )}
-              {filters.status !== 'all' && (
-                <span className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 text-gray-700 rounded-md">
-                  Status:{' '}
-                  {
-                    statusOptions.find((opt) => opt.value === filters.status)
-                      ?.label
-                  }
-                  <button
-                    onClick={() => onFilterChange('status', 'all')}
-                    className="ml-1 text-gray-500 hover:text-gray-700"
-                  >
-                    ×
-                  </button>
-                </span>
-              )}
-            </div>
+          {hasActiveFilters && (
             <Button
               variant="secondary"
               onClick={onClearFilters}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-colors duration-200"
+              className="h-9 px-3 text-xs whitespace-nowrap"
             >
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
               Clear All
             </Button>
+          )}
+        </div>
+
+        {hasActiveFilters && (filters.search || filters.status !== 'all') && (
+          <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-border">
+            {filters.search && (
+              <span className="inline-flex items-center gap-1 px-2 py-1 bg-muted text-foreground rounded text-xs">
+                "{filters.search}"
+                <button
+                  onClick={() => onFilterChange('search', '')}
+                  className="ml-1 text-muted-foreground hover:text-foreground"
+                >
+                  ×
+                </button>
+              </span>
+            )}
+            {filters.status !== 'all' && (
+              <span className="inline-flex items-center gap-1 px-2 py-1 bg-muted text-foreground rounded text-xs">
+                {
+                  statusOptions.find((opt) => opt.value === filters.status)
+                    ?.label
+                }
+                <button
+                  onClick={() => onFilterChange('status', 'all')}
+                  className="ml-1 text-muted-foreground hover:text-foreground"
+                >
+                  ×
+                </button>
+              </span>
+            )}
           </div>
         )}
       </div>

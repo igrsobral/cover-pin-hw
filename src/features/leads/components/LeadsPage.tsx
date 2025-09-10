@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useLeads, useLeadFilters } from '../hooks';
+import { useLeadFilters, useLeads } from '../hooks';
 
 import LeadDetail from './LeadDetail';
 import LeadFilters from './LeadFilters';
@@ -37,37 +37,47 @@ const LeadsPage = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-900">Leads</h1>
-        <div className="text-sm text-gray-500">
-          {filteredLeads.length} of {leads.length} leads
+    <div className="min-h-screen bg-background">
+      <div className="max-w-7xl ">
+        <div className="space-y-6 md:space-y-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+            <div>
+              <p className="text-sm text-muted-foreground mt-1">
+                Manage leads and track opportunities in your sales pipeline
+              </p>
+            </div>
+            <div className="text-sm text-muted-foreground bg-muted px-3 py-1.5 rounded-md self-start sm:self-auto">
+              {filteredLeads.length} of {leads.length} leads
+            </div>
+          </div>
+
+          <LeadFilters
+            filters={filters}
+            onFilterChange={updateFilter}
+            onClearFilters={clearFilters}
+          />
+
+          <div className="bg-card rounded-lg border border-border shadow-sm">
+            <LeadsList
+              leads={filteredLeads}
+              loading={loading}
+              error={error}
+              sortConfig={sortConfig}
+              onLeadClick={handleLeadClick}
+              onSort={updateSort}
+              onRetry={refetch}
+            />
+          </div>
+
+          <LeadDetail
+            lead={selectedLead}
+            isOpen={isDetailOpen}
+            onClose={handleDetailClose}
+            onLeadUpdate={updateLead}
+            onOpportunityCreated={handleOpportunityCreated}
+          />
         </div>
       </div>
-
-      <LeadFilters
-        filters={filters}
-        onFilterChange={updateFilter}
-        onClearFilters={clearFilters}
-      />
-
-      <LeadsList
-        leads={filteredLeads}
-        loading={loading}
-        error={error}
-        sortConfig={sortConfig}
-        onLeadClick={handleLeadClick}
-        onSort={updateSort}
-        onRetry={refetch}
-      />
-
-      <LeadDetail
-        lead={selectedLead}
-        isOpen={isDetailOpen}
-        onClose={handleDetailClose}
-        onLeadUpdate={updateLead}
-        onOpportunityCreated={handleOpportunityCreated}
-      />
     </div>
   );
 };
