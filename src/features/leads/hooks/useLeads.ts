@@ -1,8 +1,8 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { SUCCESS_MESSAGES } from '@constants/errors';
 import { fetchLeads, updateLead } from '@data/api';
 
-import { useAsync, useOptimisticUpdate, useErrorHandler } from '@shared/hooks';
+import { useAsync, useErrorHandler, useOptimisticUpdate } from '@shared/hooks';
 import { showToast } from '@shared/utils';
 
 import type { Lead } from '../types';
@@ -18,6 +18,13 @@ const useLeads = () => {
       onError: handleError,
     });
 
+  const fetchLeadsRef = useRef(fetchLeads);
+  fetchLeadsRef.current = fetchLeads;
+
+  const stableFetchLeads = useCallback(() => {
+    return fetchLeadsRef.current();
+  }, []);
+
   const asyncOptions = useMemo(
     () => ({
       immediate: true,
@@ -30,7 +37,7 @@ const useLeads = () => {
     loading,
     error,
     execute: refetch,
-  } = useAsync(fetchLeads, asyncOptions);
+  } = useAsync(stableFetchLeads, asyncOptions);
 
   const updateLeadOptimistic = useCallback(
     async (leadId: string, updates: Partial<Lead>) => {

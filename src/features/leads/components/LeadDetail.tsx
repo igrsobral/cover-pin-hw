@@ -176,7 +176,7 @@ const LeadDetail = ({
           <ErrorMessage message={error} onRetry={() => setError(null)} />
         )}
 
-        <div className="bg-gradient-to-r from-gray-50 to-white p-6 -m-6 mb-6 border-b border-gray-200">
+        <div className="bg-gradient-to-r from-gray-50 to-white p-6 -mx-4 sm:-mx-6 mb-6 border-b border-gray-200">
           <div className="space-y-4">
             <div className="space-y-2">
               <h1 className="text-2xl font-bold text-gray-900 leading-tight">
