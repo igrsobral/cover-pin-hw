@@ -24,7 +24,7 @@ const OpportunityTable = ({
         key: 'name',
         label: 'Name',
         render: (opportunity) => (
-          <div className="text-sm font-medium text-gray-900">
+          <div className="text-sm font-medium text-foreground">
             {opportunity.name}
           </div>
         ),
@@ -33,7 +33,9 @@ const OpportunityTable = ({
         key: 'accountName',
         label: 'Account',
         render: (opportunity) => (
-          <div className="text-sm text-gray-900">{opportunity.accountName}</div>
+          <div className="text-sm text-foreground">
+            {opportunity.accountName}
+          </div>
         ),
       },
       {
@@ -51,7 +53,7 @@ const OpportunityTable = ({
         key: 'amount',
         label: 'Amount',
         render: (opportunity) => (
-          <div className="text-sm text-gray-900">
+          <div className="text-sm text-foreground">
             {opportunity.amount ? formatCurrency(opportunity.amount) : '—'}
           </div>
         ),
