@@ -1,3 +1,5 @@
+import { Users, Briefcase } from 'lucide-react';
+
 export type NavigationTab = 'leads' | 'opportunities';
 
 interface NavigationProps {
@@ -7,31 +9,43 @@ interface NavigationProps {
 
 const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
   const tabs = [
-    { id: 'leads' as const, name: 'Leads', icon: '👥' },
-    { id: 'opportunities' as const, name: 'Opportunities', icon: '💼' },
+    { id: 'leads' as const, name: 'Leads', icon: Users },
+    { id: 'opportunities' as const, name: 'Opportunities', icon: Briefcase },
   ];
 
   return (
-    <nav className="bg-white shadow">
+    <nav className="bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex space-x-4 sm:space-x-8 overflow-x-auto">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => onTabChange(tab.id)}
-              className={`py-4 px-2 sm:px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-colors duration-200 ${
-                activeTab === tab.id
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
-            >
-              <span className="flex items-center space-x-2">
-                <span className="text-base sm:text-sm">{tab.icon}</span>
+        <div className="flex space-x-1 overflow-x-auto">
+          {tabs.map((tab) => {
+            const IconComponent = tab.icon;
+            const isActive = activeTab === tab.id;
+            
+            return (
+              <button
+                key={tab.id}
+                onClick={() => onTabChange(tab.id)}
+                className={`group relative flex items-center gap-2 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${
+                  isActive
+                    ? 'bg-blue-50 text-blue-700 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                }`}
+              >
+                <IconComponent 
+                  size={18} 
+                  className={`transition-colors duration-200 ${
+                    isActive ? 'text-blue-600' : 'text-gray-500 group-hover:text-gray-700'
+                  }`} 
+                />
                 <span className="hidden sm:inline">{tab.name}</span>
-                <span className="sm:hidden text-xs">{tab.name}</span>
-              </span>
-            </button>
-          ))}
+                <span className="sm:hidden">{tab.name}</span>
+                
+                {isActive && (
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-blue-600 rounded-full" />
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
     </nav>
