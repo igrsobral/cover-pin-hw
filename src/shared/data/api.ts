@@ -1,4 +1,4 @@
-import { API_ENDPOINTS, SIMULATION_CONFIG, ERROR_MESSAGES } from '../constants';
+import { API_ENDPOINTS, ERROR_MESSAGES, SIMULATION_CONFIG } from '../constants';
 
 import type { Lead, Opportunity } from '../types';
 
@@ -10,11 +10,11 @@ const simulateDelay = () => {
   return new Promise((resolve) => setTimeout(resolve, delay));
 };
 
-const simulateError = () => {
-  if (Math.random() < SIMULATION_CONFIG.ERROR_RATE) {
-    throw new Error(ERROR_MESSAGES.SIMULATED_ERROR);
-  }
-};
+// const simulateError = () => {
+//   if (Math.random() < SIMULATION_CONFIG.ERROR_RATE) {
+//     throw new Error(ERROR_MESSAGES.SIMULATED_ERROR);
+//   }
+// };
 
 export const fetchLeads = async (): Promise<Lead[]> => {
   await simulateDelay();
@@ -32,7 +32,6 @@ export const updateLead = async (
   updates: Partial<Lead>
 ): Promise<Lead> => {
   await simulateDelay();
-  simulateError();
 
   const leads = await fetchLeads();
   const leadIndex = leads.findIndex((lead) => lead.id === leadId);
@@ -47,7 +46,6 @@ export const updateLead = async (
 
 export const fetchOpportunities = async (): Promise<Opportunity[]> => {
   await simulateDelay();
-  simulateError();
 
   const response = await fetch(API_ENDPOINTS.OPPORTUNITIES);
   if (!response.ok) {
@@ -61,7 +59,6 @@ export const createOpportunity = async (
   opportunity: Omit<Opportunity, 'id'>
 ): Promise<Opportunity> => {
   await simulateDelay();
-  simulateError();
 
   const newOpportunity: Opportunity = {
     ...opportunity,
@@ -81,7 +78,6 @@ export const convertLeadToOpportunity = async (
   }
 ): Promise<{ lead: Lead; opportunity: Opportunity }> => {
   await simulateDelay();
-  simulateError();
 
   const updatedLead = await updateLead(leadId, { status: 'qualified' });
   const opportunity = await createOpportunity({
