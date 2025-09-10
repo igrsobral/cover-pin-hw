@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { RESPONSIVE_CONFIG, type ViewportInfo } from '@constants/responsive';
 
-import { RESPONSIVE_CONFIG, type ViewportInfo } from '../constants/responsive';
-import { debounce } from '../utils/performance';
+import { debounce } from '@utils/performance';
+
 import { getViewportInfo } from '../utils/responsive';
 
 export const useViewport = (): ViewportInfo => {
@@ -23,7 +24,7 @@ export const useViewport = (): ViewportInfo => {
   }, []);
 
   const debouncedUpdateViewport = useCallback(
-    debounce(updateViewport, RESPONSIVE_CONFIG.debounceDelay),
+    () => debounce(updateViewport, RESPONSIVE_CONFIG.debounceDelay),
     [updateViewport]
   );
 

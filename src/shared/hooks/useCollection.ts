@@ -15,7 +15,7 @@ interface SortConfig<T> {
   direction: 'asc' | 'desc';
 }
 
-export const useCollection = <T extends Record<string, any>>(
+export const useCollection = <T extends object>(
   items: T[],
   options: UseCollectionOptions<T> = {}
 ) => {

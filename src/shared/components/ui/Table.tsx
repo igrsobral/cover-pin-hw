@@ -208,7 +208,11 @@ const Table = <T extends object>({
                   >
                     {column.render
                       ? column.render(item)
-                      : String((item as any)[column.key] || '—')}
+                      : String(
+                          (item as Record<string, unknown>)[
+                            column.key as string
+                          ] || '—'
+                        )}
                   </td>
                 ))}
               </tr>
@@ -230,7 +234,10 @@ const Table = <T extends object>({
             {columns.map((column) => {
               const value = column.render
                 ? column.render(item)
-                : String((item as any)[column.key] || '—');
+                : String(
+                    (item as Record<string, unknown>)[column.key as string] ||
+                      '—'
+                  );
 
               return (
                 <div

@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useState } from 'react';
+import { type ReactNode, useCallback, useEffect, useState } from 'react';
 
 interface SlideOverProps {
   isOpen: boolean;
@@ -10,6 +10,13 @@ interface SlideOverProps {
 const SlideOver = ({ isOpen, onClose, title, children }: SlideOverProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+
+  const handleClose = useCallback(() => {
+    setIsAnimating(false);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  }, [onClose]);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -39,20 +46,13 @@ const SlideOver = ({ isOpen, onClose, title, children }: SlideOverProps) => {
     return () => {
       document.removeEventListener('keydown', handleEscape);
     };
-  }, [isOpen]);
+  }, [isOpen, handleClose]);
 
   useEffect(() => {
     return () => {
       document.body.style.overflow = '';
     };
   }, []);
-
-  const handleClose = () => {
-    setIsAnimating(false);
-    setTimeout(() => {
-      onClose();
-    }, 300);
-  };
 
   if (!isVisible) return null;
 

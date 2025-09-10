@@ -20,7 +20,7 @@ interface FieldState {
   dirty: boolean;
 }
 
-export const useFormState = <T extends Record<string, any>>(
+export const useFormState = <T extends Record<string, unknown>>(
   initialValues: T,
   options: UseFormStateOptions<T> = {}
 ) => {

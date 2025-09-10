@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { ERROR_MESSAGES } from '../constants';
 
@@ -16,7 +16,6 @@ interface UseAsyncOptions<T> {
 
 const useAsync = <T>(
   asyncFunction: () => Promise<T>,
-  dependencies: unknown[] = [],
   options: UseAsyncOptions<T> = { immediate: true }
 ) => {
   const [state, setState] = useState<AsyncState<T>>({
@@ -48,7 +47,7 @@ const useAsync = <T>(
 
       return null;
     }
-  }, [asyncFunction, ...dependencies]);
+  }, [asyncFunction, options]);
 
   useEffect(() => {
     if (options.immediate) {
