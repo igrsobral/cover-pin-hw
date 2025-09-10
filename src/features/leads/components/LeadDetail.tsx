@@ -7,8 +7,9 @@ import {
   Input,
   Select,
   SlideOver,
+  StatusBadge,
 } from '@shared/components/ui';
-import { ERROR_MESSAGES, STATUS_COLORS } from '@shared/constants';
+import { ERROR_MESSAGES } from '@shared/constants';
 import { convertLeadToOpportunity } from '@shared/data/api';
 import type { OpportunityStage } from '@shared/types';
 import { validateEmail } from '@shared/utils';
@@ -54,7 +55,6 @@ const LeadDetail = ({
   const [error, setError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
 
-  // Opportunity conversion form
   const [showConversionForm, setShowConversionForm] = useState(false);
   const [opportunityData, setOpportunityData] = useState({
     name: '',
@@ -207,20 +207,7 @@ const LeadDetail = ({
 
               <div className="flex flex-col items-end">
                 <p className="text-sm font-medium text-gray-700 mb-1">Status</p>
-                <span
-                  className={`inline-flex px-3 py-1.5 text-sm font-semibold rounded-full border ${
-                    currentLead.status === 'new'
-                      ? `${STATUS_COLORS.NEW.bg} ${STATUS_COLORS.NEW.text} border-blue-200`
-                      : currentLead.status === 'contacted'
-                        ? `${STATUS_COLORS.CONTACTED.bg} ${STATUS_COLORS.CONTACTED.text} border-yellow-200`
-                        : currentLead.status === 'qualified'
-                          ? `${STATUS_COLORS.QUALIFIED.bg} ${STATUS_COLORS.QUALIFIED.text} border-green-200`
-                          : `${STATUS_COLORS.UNQUALIFIED.bg} ${STATUS_COLORS.UNQUALIFIED.text} border-red-200`
-                  }`}
-                >
-                  {currentLead.status.charAt(0).toUpperCase() +
-                    currentLead.status.slice(1)}
-                </span>
+                <StatusBadge status={currentLead.status} variant="lead" />
               </div>
             </div>
           </div>

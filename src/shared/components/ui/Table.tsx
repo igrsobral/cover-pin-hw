@@ -19,7 +19,7 @@ interface TableProps<T> {
   loading?: boolean;
   error?: string | null;
   sortConfig?: SortConfig;
-  onSort?: (field: keyof T | string) => void;
+  onSort?: (field: keyof T) => void;
   onRowClick?: (item: T) => void;
   onRetry?: () => void;
   emptyState?: {

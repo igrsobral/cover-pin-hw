@@ -20,7 +20,7 @@ const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
           {tabs.map((tab) => {
             const IconComponent = tab.icon;
             const isActive = activeTab === tab.id;
-            
+
             return (
               <button
                 key={tab.id}
@@ -31,15 +31,17 @@ const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                 }`}
               >
-                <IconComponent 
-                  size={18} 
+                <IconComponent
+                  size={18}
                   className={`transition-colors duration-200 ${
-                    isActive ? 'text-blue-600' : 'text-gray-500 group-hover:text-gray-700'
-                  }`} 
+                    isActive
+                      ? 'text-blue-600'
+                      : 'text-gray-500 group-hover:text-gray-700'
+                  }`}
                 />
                 <span className="hidden sm:inline">{tab.name}</span>
                 <span className="sm:hidden">{tab.name}</span>
-                
+
                 {isActive && (
                   <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-blue-600 rounded-full" />
                 )}
