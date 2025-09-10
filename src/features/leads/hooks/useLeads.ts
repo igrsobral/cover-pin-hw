@@ -17,14 +17,19 @@ const useLeads = () => {
       onError: handleError,
     });
 
+  const asyncOptions = useMemo(
+    () => ({
+      immediate: true,
+    }),
+    []
+  );
+
   const {
     data: fetchedLeads,
     loading,
     error,
     execute: refetch,
-  } = useAsync(fetchLeads, [], {
-    immediate: true,
-  });
+  } = useAsync(fetchLeads, [], asyncOptions);
 
   const updateLeadOptimistic = useCallback(
     async (leadId: string, updates: Partial<Lead>) => {

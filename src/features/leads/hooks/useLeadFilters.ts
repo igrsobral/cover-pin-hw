@@ -64,7 +64,12 @@ const useLeadFilters = (leads: Lead[]) => {
             : 'desc',
       });
     },
-    [collectionHandleSort, setSortConfig]
+    [
+      collectionHandleSort,
+      sortConfig.direction,
+      sortConfig.field,
+      setSortConfig,
+    ]
   );
 
   const clearFilters = useCallback(() => {
