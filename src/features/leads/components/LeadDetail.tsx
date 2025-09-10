@@ -12,7 +12,7 @@ import {
 import { ERROR_MESSAGES } from '@shared/constants';
 import { convertLeadToOpportunity } from '@shared/data/api';
 import type { OpportunityStage } from '@shared/types';
-import { validateEmail } from '@shared/utils';
+import { validateEmail, showToast } from '@shared/utils';
 
 import type { Lead, LeadStatus } from '../types';
 
@@ -104,12 +104,14 @@ const LeadDetail = ({
 
     try {
       await onLeadUpdate(lead.id, editedLead);
+      showToast.success(`Successfully updated ${lead.name}`);
       setIsEditing(false);
       setEditedLead({});
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : ERROR_MESSAGES.UPDATE_LEAD_FAILED
-      );
+      const errorMessage =
+        err instanceof Error ? err.message : ERROR_MESSAGES.UPDATE_LEAD_FAILED;
+      setError(errorMessage);
+      showToast.error(`Failed to update lead: ${errorMessage}`);
     } finally {
       setIsSaving(false);
     }
@@ -138,13 +140,15 @@ const LeadDetail = ({
         accountName: opportunityData.accountName,
       });
 
+      showToast.success(`Successfully converted ${lead.name} to opportunity`);
       setShowConversionForm(false);
       onOpportunityCreated?.();
       onClose();
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : ERROR_MESSAGES.CONVERT_LEAD_FAILED
-      );
+      const errorMessage =
+        err instanceof Error ? err.message : ERROR_MESSAGES.CONVERT_LEAD_FAILED;
+      setError(errorMessage);
+      showToast.error(`Failed to convert lead: ${errorMessage}`);
     } finally {
       setIsConverting(false);
     }

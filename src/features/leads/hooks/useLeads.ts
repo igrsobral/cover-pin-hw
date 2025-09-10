@@ -3,6 +3,7 @@ import { SUCCESS_MESSAGES } from '@constants/errors';
 import { fetchLeads, updateLead } from '@data/api';
 
 import { useAsync, useOptimisticUpdate, useErrorHandler } from '@shared/hooks';
+import { showToast } from '@shared/utils';
 
 import type { Lead } from '../types';
 
@@ -12,7 +13,7 @@ const useLeads = () => {
   const { performOptimisticUpdate, getOptimisticValue, hasOptimisticUpdate } =
     useOptimisticUpdate<Lead, string>({
       onSuccess: () => {
-        console.log(SUCCESS_MESSAGES.LEAD_UPDATED);
+        showToast.success(SUCCESS_MESSAGES.LEAD_UPDATED);
       },
       onError: handleError,
     });
@@ -29,7 +30,7 @@ const useLeads = () => {
     loading,
     error,
     execute: refetch,
-  } = useAsync(fetchLeads, [], asyncOptions);
+  } = useAsync(fetchLeads, asyncOptions);
 
   const updateLeadOptimistic = useCallback(
     async (leadId: string, updates: Partial<Lead>) => {
