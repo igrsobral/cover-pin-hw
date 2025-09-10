@@ -1,6 +1,7 @@
-import type { Opportunity } from '../types';
 import { LoadingSpinner, ErrorMessage } from '@shared/components/ui';
 import { formatCurrency, capitalizeFirst } from '@shared/utils';
+
+import type { Opportunity } from '../types';
 
 interface OpportunityTableProps {
   opportunities: Opportunity[];

@@ -30,7 +30,7 @@ const LeadsList = memo(
         if (sortConfig.field !== field) {
           return (
             <svg
-              className="w-4 h-4 text-gray-400"
+              className="w-4 h-4 text-gray-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -121,7 +121,7 @@ const LeadsList = memo(
       return (
         <div className="text-center py-12">
           <svg
-            className="mx-auto h-12 w-12 text-gray-400"
+            className="mx-auto h-12 w-12 text-gray-600"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -136,7 +136,7 @@ const LeadsList = memo(
           <h3 className="mt-2 text-sm font-medium text-gray-900">
             No leads found
           </h3>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-gray-700">
             Try adjusting your search or filter criteria.
           </p>
         </div>
@@ -176,6 +176,21 @@ const LeadsList = memo(
                 <th
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                   onClick={() => onSort('company')}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onSort('company');
+                    }
+                  }}
+                  aria-label={`Sort by company ${
+                    sortConfig.field === 'company'
+                      ? sortConfig.direction === 'asc'
+                        ? 'descending'
+                        : 'ascending'
+                      : 'ascending'
+                  }`}
                 >
                   <div className="flex items-center space-x-1">
                     <span>Company</span>
@@ -191,6 +206,21 @@ const LeadsList = memo(
                 <th
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                   onClick={() => onSort('score')}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onSort('score');
+                    }
+                  }}
+                  aria-label={`Sort by score ${
+                    sortConfig.field === 'score'
+                      ? sortConfig.direction === 'asc'
+                        ? 'descending'
+                        : 'ascending'
+                      : 'ascending'
+                  }`}
                 >
                   <div className="flex items-center space-x-1">
                     <span>Score</span>
@@ -200,6 +230,21 @@ const LeadsList = memo(
                 <th
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                   onClick={() => onSort('status')}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onSort('status');
+                    }
+                  }}
+                  aria-label={`Sort by status ${
+                    sortConfig.field === 'status'
+                      ? sortConfig.direction === 'asc'
+                        ? 'descending'
+                        : 'ascending'
+                      : 'ascending'
+                  }`}
                 >
                   <div className="flex items-center space-x-1">
                     <span>Status</span>
@@ -233,10 +278,10 @@ const LeadsList = memo(
                     <div className="text-sm text-gray-900">{lead.company}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-500">{lead.email}</div>
+                    <div className="text-sm text-gray-700">{lead.email}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-gray-700">
                       {capitalizeFirst(lead.source.replace('_', ' '))}
                     </div>
                   </td>

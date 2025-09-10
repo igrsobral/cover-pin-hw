@@ -1,4 +1,5 @@
 import { useOpportunities } from '../hooks';
+
 import OpportunityTable from './OpportunityTable';
 
 const OpportunitiesPage = () => {
