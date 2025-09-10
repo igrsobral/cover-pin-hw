@@ -5,3 +5,5 @@ export { default as LoadingSpinner } from './LoadingSpinner';
 export { default as ErrorMessage } from './ErrorMessage';
 export { default as SlideOver } from './SlideOver';
 export { default as InfoCard } from './InfoCard';
+export { default as Table } from './Table';
+export type { TableColumn, SortConfig } from './Table';
