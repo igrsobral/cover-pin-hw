@@ -12,7 +12,7 @@ import {
 import { ERROR_MESSAGES } from '@shared/constants';
 import { convertLeadToOpportunity } from '@shared/data/api';
 import type { OpportunityStage } from '@shared/types';
-import { validateEmail, showToast } from '@shared/utils';
+import { showToast, validateEmail } from '@shared/utils';
 
 import type { Lead, LeadStatus } from '../types';
 
@@ -104,7 +104,6 @@ const LeadDetail = ({
 
     try {
       await onLeadUpdate(lead.id, editedLead);
-      showToast.success(`Successfully updated ${lead.name}`);
       setIsEditing(false);
       setEditedLead({});
     } catch (err) {

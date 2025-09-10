@@ -9,7 +9,7 @@ export const test = base.extend<{
   mockApi: MockApi;
 }>({
   // eslint-disable-next-line no-empty-pattern
-  testHelpers: async ({ }, use) => {
+  testHelpers: async ({}, use) => {
     const testHelpers = new TestHelpers();
     await use(testHelpers);
   },

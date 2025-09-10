@@ -1,19 +1,19 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { fetchOpportunities } from '@data/api';
 
-import { useAsync, useCollection, useErrorHandler } from '@shared/hooks';
+import { useAsync, useErrorHandler } from '@shared/hooks';
 
 import type { Opportunity } from '../types';
 
 const useOpportunities = () => {
-  const { handleError } = useErrorHandler();
+  const errorHandlerOptions = useMemo(() => ({}), []);
+  const { handleError } = useErrorHandler(errorHandlerOptions);
 
   const asyncOptions = useMemo(
     () => ({
       immediate: true,
-      onError: handleError,
     }),
-    [handleError]
+    []
   );
 
   const {
@@ -23,33 +23,16 @@ const useOpportunities = () => {
     execute: refetch,
   } = useAsync(fetchOpportunities, asyncOptions);
 
+  useEffect(() => {
+    if (error) {
+      handleError(new Error(error));
+    }
+  }, [error, handleError]);
+
   const opportunities = useMemo(
     () => fetchedOpportunities || [],
     [fetchedOpportunities]
   );
-
-  const {
-    items: filteredOpportunities,
-    searchTerm,
-    setSearchTerm,
-    handleSort,
-    sortConfig,
-    clearSearch,
-    totalCount,
-    hasActiveFilters,
-    isSearching,
-    paginate,
-    getTotalPages,
-  } = useCollection(opportunities, {
-    searchFields: ['name', 'accountName'],
-    sortField: 'name',
-    sortDirection: 'asc',
-    debounceDelay: 300,
-  });
-
-  const refreshOpportunities = useCallback(() => {
-    refetch();
-  }, [refetch]);
 
   const getOpportunityById = useCallback(
     (opportunityId: string): Opportunity | undefined => {
@@ -84,32 +67,12 @@ const useOpportunities = () => {
   }, [opportunities]);
 
   return {
-    // Core data
-    opportunities: filteredOpportunities,
-    allOpportunities: opportunities,
+    opportunities,
     loading,
     error,
-
-    // Operations
-    refetch: refreshOpportunities,
+    refetch,
     getOpportunityById,
-
-    // Search and filtering
-    searchTerm,
-    setSearchTerm,
-    handleSort,
-    sortConfig,
-    clearSearch,
-
-    // Stats and metadata
-    totalCount,
-    hasActiveFilters,
-    isSearching,
     opportunityStats,
-
-    // Pagination
-    paginate,
-    getTotalPages,
   };
 };
 
