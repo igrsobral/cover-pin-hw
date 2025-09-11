@@ -2,6 +2,9 @@ import { API_ENDPOINTS, ERROR_MESSAGES, SIMULATION_CONFIG } from '../constants';
 
 import type { Lead, Opportunity } from '../types';
 
+let leadsCache: Lead[] | null = null;
+let opportunitiesCache: Opportunity[] | null = null;
+
 const simulateDelay = () => {
   const delay =
     Math.random() *
@@ -19,12 +22,18 @@ const simulateDelay = () => {
 export const fetchLeads = async (): Promise<Lead[]> => {
   await simulateDelay();
 
+  if (leadsCache) {
+    return leadsCache;
+  }
+
   const response = await fetch(API_ENDPOINTS.LEADS);
   if (!response.ok) {
     throw new Error(ERROR_MESSAGES.FETCH_LEADS_FAILED);
   }
 
-  return response.json();
+  const leads = await response.json();
+  leadsCache = leads;
+  return leads;
 };
 
 export const updateLead = async (
@@ -33,26 +42,36 @@ export const updateLead = async (
 ): Promise<Lead> => {
   await simulateDelay();
 
-  const leads = await fetchLeads();
-  const leadIndex = leads.findIndex((lead) => lead.id === leadId);
+  if (!leadsCache) {
+    await fetchLeads();
+  }
 
+  const leadIndex = leadsCache!.findIndex((lead) => lead.id === leadId);
   if (leadIndex === -1) {
     throw new Error(ERROR_MESSAGES.LEAD_NOT_FOUND);
   }
 
-  const updatedLead = { ...leads[leadIndex], ...updates };
+  const updatedLead = { ...leadsCache![leadIndex], ...updates };
+  leadsCache![leadIndex] = updatedLead;
+
   return updatedLead;
 };
 
 export const fetchOpportunities = async (): Promise<Opportunity[]> => {
   await simulateDelay();
 
+  if (opportunitiesCache) {
+    return opportunitiesCache;
+  }
+
   const response = await fetch(API_ENDPOINTS.OPPORTUNITIES);
   if (!response.ok) {
     throw new Error(ERROR_MESSAGES.FETCH_OPPORTUNITIES_FAILED);
   }
 
-  return response.json();
+  const opportunities = await response.json();
+  opportunitiesCache = opportunities;
+  return opportunities;
 };
 
 export const createOpportunity = async (
@@ -60,10 +79,16 @@ export const createOpportunity = async (
 ): Promise<Opportunity> => {
   await simulateDelay();
 
+  if (!opportunitiesCache) {
+    await fetchOpportunities();
+  }
+
   const newOpportunity: Opportunity = {
     ...opportunity,
     id: `opp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
   };
+
+  opportunitiesCache!.push(newOpportunity);
 
   return newOpportunity;
 };
