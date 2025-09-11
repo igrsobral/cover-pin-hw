@@ -40,7 +40,8 @@ test.describe('Leads List Error Handling and Edge Cases', () => {
             contentType: 'application/json',
             body: JSON.stringify(filteredLeads),
           });
-        } catch (error) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (err) {
           // Handle case where page is closed
           await route.abort();
         }
