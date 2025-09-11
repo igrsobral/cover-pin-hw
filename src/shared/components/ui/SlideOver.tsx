@@ -68,7 +68,7 @@ const SlideOver = ({ isOpen, onClose, title, children }: SlideOverProps) => {
         <section className="absolute inset-y-0 right-0 pl-10 max-w-full flex">
           <div className="relative w-screen max-w-md">
             <div
-              className={`h-full flex flex-col py-6 bg-white overflow-y-scroll transform transition-transform duration-300 ease-out ${
+              className={`h-full flex flex-col w-full py-6 bg-white overflow-y-scroll transform transition-transform duration-300 ease-out ${
                 isAnimating ? 'translate-x-0' : 'translate-x-full'
               }`}
             >

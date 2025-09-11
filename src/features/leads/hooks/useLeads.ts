@@ -52,11 +52,13 @@ const useLeads = () => {
 
       const optimisticLead = { ...leadToUpdate, ...updates };
 
-      await performOptimisticUpdate(leadId, optimisticLead, () =>
-        updateLead(leadId, updates)
-      );
+      await performOptimisticUpdate(leadId, optimisticLead, async () => {
+        const result = await updateLead(leadId, updates);
+        refetch();
+        return result;
+      });
     },
-    [fetchedLeads, performOptimisticUpdate]
+    [fetchedLeads, performOptimisticUpdate, refetch]
   );
 
   const leadsWithOptimisticUpdates = useMemo(() => {
