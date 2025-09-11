@@ -40,7 +40,7 @@ const useLeads = () => {
   } = useAsync(stableFetchLeads, asyncOptions);
 
   const updateLeadOptimistic = useCallback(
-    async (leadId: string, updates: Partial<Lead>) => {
+    async (leadId: string, updates: Partial<Lead>): Promise<void> => {
       const currentLeads = fetchedLeads || [];
       const leadToUpdate = currentLeads.find(
         (lead: Lead) => lead.id === leadId
@@ -52,7 +52,7 @@ const useLeads = () => {
 
       const optimisticLead = { ...leadToUpdate, ...updates };
 
-      return performOptimisticUpdate(leadId, optimisticLead, () =>
+      await performOptimisticUpdate(leadId, optimisticLead, () =>
         updateLead(leadId, updates)
       );
     },
