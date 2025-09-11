@@ -24,7 +24,7 @@ const LeadFilters = ({
   const hasActiveFilters = filters.search !== '' || filters.status !== 'all';
 
   return (
-    <div className="bg-card border border-border rounded-lg shadow-sm">
+    <div className="bg-card border border-border rounded-lg shadow-sm my-6">
       <div className="p-4">
         <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-end">
           <div className="w-full sm:flex-1 sm:min-w-0">
