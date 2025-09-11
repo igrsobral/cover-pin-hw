@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useLeadFilters, useLeads } from '../hooks';
 
@@ -35,6 +35,15 @@ const LeadsPage = () => {
   const handleOpportunityCreated = () => {
     refetch();
   };
+
+  useEffect(() => {
+    if (selectedLead) {
+      const updatedLead = leads.find((lead) => lead.id === selectedLead.id);
+      if (updatedLead) {
+        setSelectedLead(updatedLead);
+      }
+    }
+  }, [leads, selectedLead]);
 
   return (
     <div className="min-h-screen bg-background">

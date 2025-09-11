@@ -6,7 +6,7 @@ interface ContactInfoCardProps {
 
 export const ContactInfoCard = ({ lead }: ContactInfoCardProps) => {
   return (
-    <div className="bg-white shadow rounded-lg p-6">
+    <div className="bg-slate-50 shadow rounded-lg p-6">
       <h3 className="text-lg font-medium text-gray-900 mb-4">
         Contact Information
       </h3>

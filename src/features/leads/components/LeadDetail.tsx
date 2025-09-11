@@ -133,7 +133,7 @@ const LeadDetail = ({
                 onClick={() => setShowConversionForm(true)}
                 className="w-full"
               >
-                Convert to Opportunity
+                Convert Lead
               </Button>
             )}
           </div>
